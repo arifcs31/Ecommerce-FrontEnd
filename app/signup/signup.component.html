@@ -1,0 +1,126 @@
+<main class="mainBody">
+  <!--  Register Page UI-->
+  <div class="container">
+
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center">
+        <div class="register-page">
+          <div class="registerContainer">
+            <div class="form-container sign-up-container fade-out">
+              <div class="flex justify-content-center">
+                {{msg}}
+              </div>
+              <form [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()" novalidate>
+                <h2>Create Account</h2>
+                <span class="leadLine">or use your email for registration</span>
+                <input class="login-input" type="text" placeholder="First Name" formControlName="firstName">
+                <div class="invalid-feedback"
+                     *ngIf="signupForm.controls['firstName'].invalid && (signupForm.controls['firstName'].dirty || signupForm.controls['firstName'].touched)"
+                     class="alert text-danger">
+                  <div *ngIf="signupForm.controls['firstName'].errors">
+                    First Name is required. (4-50) Characters
+                  </div>
+                </div>
+                <input class="login-input" type="text" placeholder="Last Name" formControlName="lastName">
+                <div class="invalid-feedback"
+                     *ngIf="signupForm.controls['lastName'].invalid && (signupForm.controls['lastName'].dirty || signupForm.controls['lastName'].touched)"
+                     class="alert text-danger">
+                  <div *ngIf="signupForm.controls['lastName'].errors">
+                    Last Name is required. (4-50) Characters
+                  </div>
+                </div>
+                <input class="login-input" type="email" placeholder="Email" formControlName="email">
+                <div class="invalid-feedback"
+                     *ngIf="signupForm.controls['email'].invalid && (signupForm.controls['email'].dirty || signupForm.controls['email'].touched)"
+                     class="alert text-danger">
+                  <div *ngIf="signupForm.controls['email'].errors">
+                    Email is required. (4-100) Characters
+                  </div>
+                </div>
+                <input class="login-input" type="password" placeholder="Password" formControlName="password">
+                <div class="invalid-feedback"
+                     *ngIf="signupForm.controls['password'].invalid && (signupForm.controls['password'].dirty || signupForm.controls['password'].touched)"
+                     class="alert text-danger">
+                  <div *ngIf="signupForm.controls['password'].errors">
+                    Password is required. (5-50) Characters
+                  </div>
+                </div>
+                <input class="login-input" type="password" placeholder="Confirm Password"
+                       formControlName="confirmPassword">
+                <div class="invalid-feedback"
+                     *ngIf="signupForm.controls['confirmPassword'].invalid && (signupForm.controls['confirmPassword'].dirty || signupForm.controls['confirmPassword'].touched)"
+                     class="alert text-danger">
+                  <div *ngIf="signupForm.controls['confirmPassword'].errors">
+                    Confirm password is required. (5-50) Characters
+                  </div>
+                </div>
+                <input class="login-input" type="text" placeholder="Phone" formControlName="phone">
+                <div class="invalid-feedback"
+                     *ngIf="signupForm.controls['phone'].invalid && (signupForm.controls['phone'].dirty || signupForm.controls['phone'].touched)"
+                     class="alert text-danger">
+                  <div *ngIf="signupForm.controls['phone'].errors">
+                    Phone is required. (5-14) Characters
+                  </div>
+                </div>
+                <button class="btn btn-primary mb-3" [disabled]="!this.signupForm.valid">Sign Up</button>
+                <div class="form-check mb-0">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckNewsletter" checked>
+                  <label class="form-check-label text-start" for="flexCheckNewsletter">
+                    To receive great offers and packaging tips, sign up to our newsletter
+                  </label>
+                </div>
+              </form>
+              <div class="text-center">
+                <button class="btn text-primary" id="signUp" (click)="Toggle('signin')">Sign In</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  Register Page UI-->
+</main>
+<!--                Forgot Password Modal-->
+<!-- Modal -->
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="flex justify-content-center">
+          {{msg}}
+        </div>
+        <form [formGroup]="forgotpasswordForm" (ngSubmit)="onForgotPasswordSubmit()" novalidate>
+          <div class="row">
+            <div class="col-12">
+              <div class="row">
+                <div class="registerContainer" style="min-height: auto; background-color: transparent; box-shadow: none;">
+                  <input type="email" class="login-input justify-content-end" placeholder="Email" formControlName="email">
+                  <div class="invalid-feedback"
+                       *ngIf="forgotpasswordForm.controls['email'].invalid && (forgotpasswordForm.controls['email'].dirty || forgotpasswordForm.controls['email'].touched)"
+                       class="alert text-danger">
+                    <div *ngIf="forgotpasswordForm.controls['email'].errors">
+                      Email is required. (5-100) Characters
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 10px ;">
+                <div class="col-12">
+                  <div class="d-flex justify-content-center">
+                    <button class="btn btn-primary">Forgot Password</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

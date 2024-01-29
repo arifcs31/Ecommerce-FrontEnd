@@ -1,0 +1,405 @@
+<!-- Top Bar -->
+  <div *ngIf="mainHeader">
+  <div  class="top_bar bgPrimary py-2">
+    <div class="container">
+      <div class="row">
+        <div class="col d-flex justify-content-between flex-wrap">
+          <div class="d-flex align-items-center">
+              <span class="material-symbols-outlined mr-1">
+                  call
+                </span>
+              <span><a href="tel:01708764022">01708764022</a>, <a href="tel:07424027442">07424027442</a></span>
+            </div>
+            <div class="d-flex">
+              <div class="top_bar_content d-flex align-items-center ">
+                <div class="top_bar_user">
+                  <a  class="text-decoration-none" href="javascript:void(0)" (click)="openOrderHistory()">Past Orders</a>
+                </div>
+                <div *ngIf="user" class="top_bar_user">
+                  <a href="javascript:void(0)" class="d-flex align-items-center gap-1 text-decoration-none">
+                    <span class="material-symbols-outlined">
+                      person
+                    </span>
+                <span>{{user.first_name}}</span>
+              </a>
+            </div>
+            <div *ngIf="user" class="top_bar_user">
+              <a href="javascript:void(0)" (click)="logout()" class="d-flex align-items-center gap-1 text-decoration-none">
+                  <span style="display: flex">
+                    <i class='fs-4 text-white bx bx-power-off'></i>
+                  </span>
+              </a>
+            </div>
+            <div *ngIf="!user" class="top_bar_user">
+              <div>
+                <a href="javascript:void(0)" (click)="openSignupPage()" class="d-flex align-items-center gap-1 text-decoration-none">
+                      <span class="material-symbols-outlined">
+                        person
+                      </span>
+                  <span>Login</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <header  class="stickyMenu">
+    <div class="section-header">
+      <section class="header-main border-bottom bg-white">
+        <div class="container">
+          <div class="row pt-3 pb-3 d-flex align-items-center">
+            <div class="col-md-2" >
+              <img  class="d-none d-md-flex" src="assets/images/logo-2.png" width="60" (click)="openLanding()" style="cursor: pointer">
+            </div>
+            <div class="col-md-8 col-10">
+              <div class="d-flex justify-content-center">
+                <div class="input-group">
+                  <input type="text"  [(ngModel)]="search"  class="form-control" placeholder="Search" aria-label="Search" (keyup.enter)="openSearchProducts()" aria-describedby="button-addon2"  >
+                  <button style="min-width: 40px; padding: 0; border-top-right-radius: 6px; border-bottom-right-radius: 6px;" (click)="openSearchProducts()" (keyup.enter)="openSearchProducts()" type="submit" class="btn btn-sm btn-secondary trans_300" value="Submit"><img
+                    src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918770/search.png" alt=""></button>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-2 col-2">
+              <div class="d-flex d-md-flex flex-row align-items-center justify-content-lg-end justify-content-center">
+                <div>
+                  <ul class="nav navbar-nav navbar-right p-0">
+
+                    <li class="nav-item dropdown cartMainDropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="cart">
+                          <div class="cart_container d-flex flex-row align-items-center justify-content-end">
+                            <div class="cart_icon mr-sm-2" id="cart">
+                              <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918704/cart.png" alt="">
+                              <div class="cart_count"><span>{{cart.count}}</span></div>
+                            </div>
+                            <div class="cart_content" (click)="openCheckout()">
+                              <div class="cart_text"><a href="javascript:void(0)" >Cart</a>
+                              </div>
+                              <div class="cart_price">£ {{cart.subTotal}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                      <div class="dropdown-menu dropdown-cart dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" *ngFor="let item of cart.cartIems;let first = first;let index = index;">
+                                <span class="item">
+                                  <span class="item-left">
+                                      <img
+                                        class="img-thumbnail"
+                                        width="30px"
+                                        src="{{item.product.image_url}}"
+                                        alt=""/>
+                                      <span class="item-info">
+                                          <span>Item name: {{item.product.name}}</span>
+                                          <span>price: £{{item.price}}</span>
+                                      </span>
+                                    </span>
+                                </span>
+                        </a>
+                        <a class="dropdown-item" class="btn btn-secondary d-block" href="javascript:void(0)" (click)="openCheckout()">View
+                          Cart
+                        </a>
+                      </div>
+                    </li>
+
+
+<!--                    <li class="dropdown cart-dropdown">-->
+<!--                      <a class="dropdown-toggle" type="button" id="dropdownMenuButton3">-->
+<!--                        <div class="cart">-->
+<!--                          <div class="cart_container d-flex flex-row align-items-center justify-content-end">-->
+<!--                            <div class="cart_icon mr-sm-2" id="cart">-->
+<!--                              <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918704/cart.png" alt="">-->
+<!--                              <div class="cart_count"><span>{{cart.count}}</span></div>-->
+<!--                            </div>-->
+<!--                            <div class="cart_content">-->
+<!--                              <div class="cart_text"><a href="javascript:void(0)" (click)="openCheckout()">Cart</a>-->
+<!--                              </div>-->
+<!--                              <div class="cart_price">£ {{cart.subTotal}}</div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </a>-->
+<!--                      <ul class="dropdown-menu dropdown-cart dropdown-menu-right" aria-labelledby="dropdownMenuButton3">-->
+<!--                        <li *ngFor="let item of cart.cartIems;let first = first;let index = index;">-->
+<!--                            <span class="item">-->
+<!--                              <span class="item-left">-->
+<!--                                  <img-->
+<!--                                    class="img-thumbnail"-->
+<!--                                    src="{{item.product.image_url}}"-->
+<!--                                    alt=""/>-->
+<!--                                  <span class="item-info">-->
+<!--                                      <span>Item name: {{item.product.name}}</span>-->
+<!--                                      <span>price: £{{item.price}}</span>-->
+<!--                                  </span>-->
+<!--                                </span>-->
+<!--                            </span>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                          <a class="btn btn-secondary d-block" href="javascript:void(0)" (click)="openCheckout()">View-->
+<!--                            Cart</a></li>-->
+<!--                      </ul>-->
+<!--                    </li>-->
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="nav">
+        <!--      https://codepen.io/vixxofsweden/pen/xxGGYOE-->
+        <nav class="d-lg-none">
+          <div class="mobile-menu-trigger">
+            <i class='bx bx-menu'></i>
+          </div>
+          <ul class="menu menu-bar">
+            <li *ngFor="let category of categories;">
+
+              <a href="javascript:void(0)" (click)="openMobileCategoryDetail(category.slug)" class="menu-link menu-bar-link" aria-haspopup="true" >{{category.name}}</a>
+              <ul class="mega-menu mega-menu--multiLevel bumper" *ngIf="category.subCategories.length > 0">
+                <li *ngFor="let subCategory of category.subCategories;">
+                  <a href="javascript:void(0)" (click)="openMobileCategoryDetail(subCategory.slug)" class="menu-link mini-link menu-link-inner mega-menu-link" aria-haspopup="true">{{subCategory.name}}</a>
+                  <ul class="menu menu-list"  *ngIf="subCategory.subCategories.length > 0">
+                    <li *ngFor="let sub2Category of subCategory.subCategories;">
+                      <a href="javascript:void(0)" (click)="openMobileCategoryDetail(sub2Category.slug)" class="dump menu-link mini-link menu-link-inner menu-list-link">{{sub2Category.name}}</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="mobile-menu-back-item">
+                  <a href="javascript:void(0);" class="menu-link mobile-menu-back-link">Back</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="mobile-menu-header">
+              <a href="javascript:void(0)" class="" (click)="openLanding()">
+                <span>Home</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="webNav">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <nav class="navbar d-lg-block d-none navbar-expand-lg">
+              <div class="collapse navbar-collapse" id="main_nav">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item fromLeft  dropdown" *ngFor="let category of categories;">
+                    <a class="nav-link dropdown-toggle" href="javascript:void(0)" (click)="openCategoryDetail(category.slug)" data-toggle="dropdown" aria-expanded="false">  {{category.name}}  </a>
+                    <ul class="dropdown-menu" *ngIf="category.subCategories.length > 0">
+                      <li *ngFor="let subCategory of category.subCategories;">
+                        <a class="dropdown-item" href="javascript:void(0)" (click)="openCategoryDetail(subCategory.slug)"> {{subCategory.name}} </a>
+                        <ul class="submenu dropdown-menu" *ngIf="subCategory.subCategories.length > 0">
+                          <li *ngFor="let sub2Category of subCategory.subCategories;">
+                            <a href="javascript:void(0)" (click)="openCategoryDetail(sub2Category.slug)" class="dropdown-item">{{sub2Category.name}}</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div> <!-- navbar-collapse.// -->
+
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+</div>
+
+  <div *ngIf="!mainHeader">
+    <section class="header-main stickyMenu mb-2 border-bottom bg-white">
+      <div class="container">
+        <div class="row p-2 pt-2 pb-2 pt-lg-3 pb-lg-3 d-flex align-items-center">
+          <div class="col-lg-6">
+            <img  class="d-none d-md-flex" src="assets/images/logo-2.png" width="60" (click)="openLanding()" style="cursor: pointer">
+          </div>
+          <div class="col-lg-6 d-flex align-items-center">
+            <div class="stepper-wrapper">
+              <div class="stepper-item"  [ngClass]="{'completed' : step>0}">
+                <div class="step-counter">1</div>
+                <div class="step-name">Login/Register</div>
+              </div>
+              <div class="stepper-item" [ngClass]="{'completed' : step>1}">
+                <div class="step-counter">2</div>
+                <div class="step-name">Details</div>
+              </div>
+              <div class="stepper-item" [ngClass]="{'completed' : step>2}">
+                <div class="step-counter">3</div>
+                <div class="step-name">Payments</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+
+
+<ng-http-loader></ng-http-loader>
+    <router-outlet></router-outlet>
+<!--Footer Start-->
+<Footer>
+  <div class="container FooterBorder">
+    <div class="row">
+      <div class="col col-lg-4 col-md-6">
+        <div class="footerWidget">
+          <div class="footerWidgetTitle">
+            <h3>Information</h3>
+          </div>
+          <div class="footerWidgetList">
+            <ul>
+
+              <li>
+                <a href="javascript:void(0)" (click)="openAbout()">About us</a>
+              </li>
+              <li>
+                <a href="javascript:void(0)" (click)="openDeliveryInfo()">Delivery Services & Costs</a>
+              </li>
+              <li>
+                <a href="javascript:void(0)" (click)="openTerms()">Term & Condition</a>
+              </li>
+              <li>
+                <a href="javascript:void(0)" (click)="  openPrivacyPolicy()">Privacy Policy</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col col-lg-4 col-md-6">
+        <div class="footerWidget">
+          <div class="footerWidgetTitle">
+            <h3>Company</h3>
+          </div>
+          <div class="footerWidgetList">
+            <ul>
+              <li>
+                <a href="javascript:void(0)" (click)="openContact()">Contact us</a>
+              </li>
+              <li>
+                <a href="javascript:void(0)" (click)="openReturnPolicy()">Returns & Exchange </a>
+              </li>
+              <li>
+                <a href="javascript:void(0)" (click)="openPaymentPolicy()">Payments Policy</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col col-lg-4 col-md-6">
+        <div class="footerWidget">
+          <div class="footerWidgetTitle">
+            <h3>Connect With Us</h3>
+          </div>
+          <div class="footerWidgetList">
+            <ul class="social-media">
+              <li>
+                <b>
+                  Email:  <a href="sales@qtpack.co.uk">sales@qtpack.co.uk</a>
+                </b>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+<!--      <div class="col col-lg-3 col-md-6">-->
+<!--        <div class="footerWidget">-->
+<!--          <div class="footerWidgetTitle">-->
+<!--            <h3>Information</h3>-->
+<!--          </div>-->
+<!--          <div class="footerWidgetList">-->
+<!--            <ul>-->
+<!--              <li>-->
+<!--                <a href="">About</a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="">Delivery Information</a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="">Terms</a>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+    </div>
+  </div>
+</Footer>
+<!--Footer End-->
+
+<!--Bottom Footer -->
+<div class="bottomFooter">
+  <p class="mb-0">
+    © 2022 All Right Reserved by Quality Traders Ltd.
+  </p>
+</div>
+<!--Bottom Footer -->
+
+<div class="chatPosition">
+</div>
+
+<!-- Cookie Banner -->
+<div id="cb-cookie-banner" style="border: none; padding: 3px;" class="d-none alert alert-dark text-center mb-0" role="alert" *ngIf="cookieBar == true">
+  🍪 This website uses cookies to ensure you get the best experience on our website.
+  <!-- <a href="https://www.cookiesandyou.com/" target="blank">Learn more</a> -->
+  <button type="button" class="btn btn-primary btn-sm ms-3" onclick="window.cb_hideCookieBanner()">
+    I Agree
+  </button>
+</div>
+<!-- End of Cookie Banner -->
+
+
+
+
+<!--Previous code-->
+
+<!--<ul class="navbar-nav">-->
+<!--  <li class="nav-item dropdown dropdown-mega position-static" *ngFor="let category of categories;">-->
+<!--    <a class="nav-link dropdown-toggle" href="javascript:void(0)" (click)="openCategoryDetail(category.slug)" data-toggle="dropdown" data-bs-auto-close="outside" (click)="myclick()">{{category.name}}</a>-->
+<!--    <div class="dropdown-menu shadow">-->
+<!--      <div class="mega-content px-4">-->
+<!--        <div class="container-fluid">-->
+<!--          <div class="row">-->
+<!--            <div class="col-12 col-sm-4 col-lg-4 col-md-4 py-4" *ngIf="category.subCategories.length > 0">-->
+<!--              <h5>{{category.name}}</h5>-->
+<!--              <div class="overflow-auto border px-2 py-3" style="max-height: 300px">-->
+<!--                <div class="list-group" *ngFor="let subCategory of category.subCategories;">-->
+<!--                  <a href="javascript:void(0)" (click)="openCategoryDetail(subCategory.slug)" class="dropdown-item dropdown-toggle list-group-item" data-toggle="dropdown" data-bs-auto-close="outside">{{subCategory.name}}</a>-->
+<!--                  <ul class="dropdown-menu dropdown-menu-child shadow" *ngIf="subCategory.subCategories.length > 0">-->
+<!--                    <li class="list-group" *ngFor="let sub2Category of subCategory.subCategories;">-->
+<!--                      <a href="javascript:void(0)" (click)="openCategoryDetail(sub2Category.slug)" class="dropdown-item list-group-item"> {{sub2Category.name}} </a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-12 col-sm-4 col-lg-5 col-md-4 py-4 d-none d-lg-block">-->
+<!--              <h5>Details</h5>-->
+<!--              <div class="card">-->
+<!--                <div class="card-body">-->
+<!--                  <p class="card-text text-capitalize">{{category.description}}</p>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-12 col-sm-4 col-lg-3 col-md-4 py-4  d-none d-lg-block">-->
+<!--              <div class="card">-->
+<!--                <img src="{{category.image_url}}" class="img-fluid" alt="image">-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </li>-->
+<!--</ul>-->

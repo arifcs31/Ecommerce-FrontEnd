@@ -1,0 +1,53 @@
+<main class="mainBody">
+
+
+  <!--  History Page-->
+  <div class="historyPage">
+    <div class="container">
+      <div class="row mt-5">
+        <div class="col-12">
+          <h3 class="mb-4">
+            Order's History
+          </h3>
+        </div>
+        <div class="col-12">
+          <div class="table-responsive">
+            <table class="table align-middle border">
+              <thead>
+              <tr>
+                <td>Date</td>
+
+                <td>Order #</td>
+
+                <td>Reference#</td>
+
+                <td>Total</td>
+
+                <td>Status</td>
+                <td></td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let order of orders;let first = first;let index = index;">
+                <td>{{order.created}}</td>
+
+                <td>{{order.order_id}}</td>
+
+                <td>{{order.payment_reference}}</td>
+
+                <td>{{order.total}}</td>
+
+                <td>{{order.status}}</td>
+                <td>
+                  <button class="btn btn-primary" (click)="ViewOrder(order.order_id)">View</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>

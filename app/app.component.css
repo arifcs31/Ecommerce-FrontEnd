@@ -1,0 +1,36 @@
+.header-main .input-group img {
+  width: 15px;
+}
+
+@media (max-width: 525.5px) {
+  .top_bar {
+    font-size: 12px;
+  }
+  [class^="material-"],
+  [class*=" material-"] {
+    font-size: 14px;
+  }
+  .cart_content {
+    display: none;
+  }
+  .cart_icon img{
+    width: 15px;
+  }
+  .cart_count {
+    width: 16px;
+    height: 16px;
+    font-size: 11px;
+    left: 8px;
+    bottom: 2px;
+  }
+  .header-main .form-control {
+    padding: 5px 9px;
+    font-size: 14px;
+  }
+  .navbar-toggler-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+}
+

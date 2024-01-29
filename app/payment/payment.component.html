@@ -1,0 +1,599 @@
+<main class="mainBody">
+  <div class="checkoutPage" *ngIf="tab == true">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card  mb-4">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div class=" d-flex align-items-center gap-3">
+                  <!-- <button class="btn btn-secondary btn-sm d-flex justify-content-center" (click)="back()">
+                    <span class="material-symbols-outlined">
+                      arrow_back
+                    </span>
+                  </button> -->
+                  <p class="fw-bold mb-0">
+                    Your Order is being placed. you will be redirected to Order Detail shortly.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+  <!--CheckOut Page Start -->
+  <div class="checkoutPage" *ngIf="tab == false">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card  mb-4">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-secondary btn-sm d-flex justify-content-center mr-2" (click)="back()">
+                    <span class="material-symbols-outlined">
+                      arrow_back
+                    </span>
+                  </button>
+                  <p class="fw-bold mb-0">
+                    Your Billing & Delivery Details
+                  </p>
+                </div>
+                <div class="flex-wrap d-flex justify-content-end gap-2">
+                  <img src="images/secure-ssl-encryption.png" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4>
+                Order Summary
+              </h4>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4>
+                Delivery Address
+              </h4>
+              <p class="card-text">
+                {{selectedAddress.region}} {{selectedAddress.address}}, {{selectedAddress.town}}, {{selectedAddress.region}}
+                , {{selectedAddress.post_code}}
+              </p>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4>
+                Billing Address
+              </h4>
+              <p class="card-text">
+                {{billingAddress.region}} {{billingAddress.address}}, {{billingAddress.town}}, {{billingAddress.region}}
+                , {{billingAddress.post_code}}
+              </p>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <ul class="p-0" [class.pt-3]="!first" [class.border-top]="!first"
+                  *ngFor="let item of cart.cartIems;let first = first;let index = index;">
+                <li class="mb-2">
+                  <p class="finalProductName">{{item.product.name}}</p>
+                </li>
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">Pack Size</label>
+                    <p class="RightValue mb-0">{{item.qty}}</p>
+                  </div>
+                </li>
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">No, of pack</label>
+                    <p class="RightValue mb-0">{{item.count}}</p>
+                  </div>
+                </li>
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">Price</label>
+                    <p class="RightValue mb-0">£{{item.total_price}}</p>
+                  </div>
+                </li>
+              </ul>
+              <ul class="px-0 border-top pt-3">
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">Sub Total</label>
+                    <p class="RightValue mb-0">£{{cart.subTotal}}</p>
+                  </div>
+                </li>
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">Delivery</label>
+                    <p class="RightValue mb-0">£{{cart.deliveryFee}}</p>
+                  </div>
+                </li>
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">Vat</label>
+                    <p class="RightValue mb-0">£{{cart.totalTax}}</p>
+                  </div>
+                </li>
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">Total</label>
+                    <p class="RightValue mb-0">£{{cart.total}}</p>
+                  </div>
+                </li>
+                <!-- <li>
+                  <div class="mt-3">
+                    <h4>
+                      Delivery Note:
+                    </h4>
+                    <p class="card-text">
+                    £{{cart.total}}
+                    </p>
+                  </div>
+                </li> -->
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="d-flex flex-wrap justify-content-between align-items-center flex-wrap">
+                <div class="">
+                  <h3 class="fw-bold mb-0">
+                    Select Your Delivery Option
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4>
+                Delivery Note:
+              </h4>
+              <p class="card-text mb-1">
+                The instructions below do not apply to our printed bag service.
+              </p>
+
+              <p class="card-text mb-1">
+                If you select Next Day Delivery, orders placed before 3pm* will be delivered next business day.
+                Excluding weekends and bank holidays.*
+              </p>
+
+              <div class="form-group mb-3">
+                <textarea [(ngModel)]="deliveryNote"
+                          placeholder="Please enter any delivery instructions for this order. (Max 50 characters)"
+                          class="form-control" name="" maxlength="50" cols="30" rows="3"></textarea>
+              </div>
+
+              <p class="card-text mb-1">
+                Goods requested to be left with anyone other than yourself is done at your own risk.
+              </p>
+              <p class="card-text mb-1">
+                If you require specific timed delivery, please choose from one of the options on the left.
+              </p>
+              <p class="card-text mb-1">
+                Requests for specific timed deliveries in the delivery instruction box cannot be guaranteed.
+              </p>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="d-flex flex-wrap align-items-start responsive-tab-menu">
+                <!-- Tabs/Pills -->
+                <ul class="nav flex-wrap mb-3 nav-pills nav-tabs-dropdown me-3" id="v-pills-tab-payment" role="tablist"
+                    aria-orientation="vertical">
+                    <li class="nav-item">
+                      <a class="nav-link text-start" [class.active]="paymentModeTab" href="javascript:void(0)" id="v-pills-paypal-tab" data-toggle="pill"
+                         data-target="#v-pills-Paypal" role="tab" aria-controls="v-pills-Paypal" aria-selected="false" click="PaymentModeDecision('paypal')">
+                         Pay by card / Paypal
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-start" [class.active]="paymentModeTab==false" href="javascript:void(0)" id="v-pills-bank-tab" data-toggle="pill"
+                         data-target="#v-pills-Bank" role="tab" aria-controls="v-pills-Bank" aria-selected="false" click="PaymentModeDecision('bank')">
+                        Bank Transfer (BACS)
+                      </a>
+                    </li>
+                </ul>
+                <!-- Tabbed Content -->
+                <div class="tab-content responsive-tab-content border p-3 w-100" id="v-pills-tab-paymentContent">
+
+                  <div class="tab-pane fade show" [class.active]="paymentModeTab==true" id="v-pills-Paypal" role="tabpanel"
+                       aria-labelledby="v-pills-Paypal-tab"
+                       tabindex="0">
+                    <div>
+                      <p>
+                        Confirm By pressing confirm below, you will be taken to Paypal to complete your transaction.
+                      </p>
+                      <p>
+                        By placing this order you agree to our
+                        <b>
+                          <a class="text-secondary" data-toggle="modal" data-target="#termAndConditionModal">Terms & Conditions</a>
+                        </b>
+                        and our
+                        <b>
+                          <a data-toggle="modal" data-target="#privacyModal">Delivery
+                            Terms</a>
+                        </b>.
+                      </p>
+                      <div class="d-flex justify-content-center" *ngIf="platform">
+                        <ngx-paypal [config]="payPalConfig" intent="capture"></ngx-paypal>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" [class.active]="paymentModeTab==false" id="v-pills-Bank" role="tabpanel" aria-labelledby="v-pills-Bank-tab"
+                  tabindex="0">
+               <form [formGroup]="bankForm" (ngSubmit)="onBankSubmit()" novalidate>
+                 <div>
+                   <p>Next, Go to your online banking and make a payment</p>
+                   <p>Please use the following details to make your payment.</p>
+                   <p class="mb-0"><span style="font-weight: bold;"> Reference number: </span>{{qtn}} (use this as payee reference)</p>
+                   <p class="mb-0"><span style="font-weight: bold;"> Account Name: </span> Quality Traders Ltd</p>
+                   <p class="mb-0"><span style="font-weight: bold;"> Bank: </span> Santander</p>
+                   <p class="mb-0"><span style="font-weight: bold;"> Account Number: </span> 38056415</p>
+                   <p ><span style="font-weight: bold;"> Sort Code: </span> 09-01-29</p>
+                   <p>
+                     After payment please click on the button below.
+                   </p>
+                   <p>
+                     By placing this order you agree to our <b><a data-toggle="modal"
+                                                                  data-target="#termAndConditionModal">Terms & Conditions</a>
+                   </b> and our <b><a data-toggle="modal" data-target="#privacyModal">Delivery Terms</a></b>.
+                   </p>
+
+                   <div class="d-flex justify-content-center flex-column">
+                     <div class="form-group">
+                       <!-- <label class="form-label"><b>Bank Transaction Number:</b>
+                       </label>
+                       <input formControlName="payment_reference" class="form-control mb-3" type="text"
+                              placeholder="Bank Transaction Number"> -->
+                       <button class="btn btn-primary" [disabled]="!this.bankForm.valid">I've made my bank transfer</button>
+
+                      </div>
+                      <p>We will forward your payment details to our accounts department. Your order will be confirmed as soon as we hear from them.</p>
+                     <div class="invalid-feedback"
+                          *ngIf="bankForm.controls['payment_reference'].invalid && (bankForm.controls['payment_reference'].dirty || bankForm.controls['payment_reference'].touched)"
+                          class="alert text-danger p-0">
+                       <div *ngIf="bankForm.controls['payment_reference'].errors">
+                         Transaction number is required. (1-100) Characters
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </form>
+             </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--CheckOut Page End -->
+  <div class="modal fade" [ngStyle]="{'display': tab ? 'block' : 'none'}" [class.show]="tab" [class.active]="tab"
+       id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h4 class="mb-4">
+            Congratulations, Order placed successfully. You will be redirected to order confirmation shortly.
+          </h4>
+          <div>
+            <!-- <button class="btn btn-secondary" (click)="ViewOrder()">View Details</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="termAndConditionModal" tabindex="-1" aria-labelledby="termAndConditionModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="termAndConditionModalLabel">Terms</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container ">
+            <div class="row">
+              <div class="col-12 text-center mb-3">
+                <h2>Terms & Conditions</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <h4>
+                      1 - Trading Terms - Definitions:
+                    </h4>
+                    <p>
+                      "Buyer" means the person or company who accepts the Sellers Quotation for the sale of the Goods or whose Order for the Goods is accepted by the Seller.
+                    </p>
+                    <p>
+                      "Goods" means the goods (including any installment of the goods or any parts for them) which the Seller is to supply in accordance with these Terms.
+                    </p>
+                    <p>
+                      "Order" means the Buyers acceptance of the Sellers Quotation for the Goods or the order placed by the Seller for the Goods whether by means of the Sellers catalogue or web site which the Buyer accepts.
+                    </p>
+                    <p>
+                      "Customized Products" means any products ordered by or supplied to the Buyer which have been either custom made or ordered from a third party or tailored to meet specific requirements stipulated by the Buyer.
+                    </p>
+                    <p>
+                      "Non-Customized Products" means any products which are not Customized Products.
+                    </p>
+                    <p>
+                      "Quotation" means the written quotation setting out the price of the Goods provided by the Seller to the Buyer.
+                    </p>
+                    <p>
+                      "Seller" means QTPack/Quality Traders Ltd , Company No. 11695930 and whose registered address 207 Gorsway, Romford, UK, RM7 0SB.
+                    </p>
+                    <p>
+                      "Terms" means the standard terms of sale set out in this document and includes any special terms agreed in writing between the Seller and the Buyer.
+                    </p>
+                    <p>
+                      These Terms govern the sale of the Goods sold by the Seller to the Buyer named on the order form provided on the Sellerâ€™s web site or catalogue and where the Goods are supplied as a result of the Buyerâ€™s acceptance of the Quotation. The completed order form or Quotation together with the Terms constitute the entire and only agreement between the parties in relation to the sale of the Goods and comprises a legally binding contract between the parties.
+                    </p>
+
+                    <h4>
+                      2 - Price and payment:
+                    </h4>
+                    <p>
+                      If the Buyer places an Order via the Sellerâ€™s web site the price payable for the Goods will be set out on the web site at the time the Seller places the Order.
+                    </p>
+                    <p>
+                      The Buyer may place an Order from one of the Sellerâ€™s current catalogues and the prices of the Goods will be set out in the said catalogue.
+                    </p>
+                    <p>
+                      For customers who have an existing account with QTPack and the products ordered are in stock we will automatically process fax, web and post orders.
+                      We will not call you to confirm fax, web and post orders.
+                    </p>
+                    <p>
+                      If the Buyer accepts the Sellerâ€™s Quotation then the prices contained therein are only valid for the period of 30 days from the date of the Quotation. If the Buyer wishes to order the Goods stated in the Quotation after this period then a new Quotation should be obtained or an enquiry made as regards the price of the Goods upon making an Order.
+                    </p>
+                    <p>
+                      Notwithstanding the above clauses the Seller reserves the right by giving notice to the Buyer at any time before delivery, to vary the price of the Goods to reflect any increase/decrease in cost to the Seller which is due to any factor beyond the control of the Seller.
+                    </p>
+                    <p>
+                      The Buyer shall be responsible for any charges for VAT and carriage in addition to the price for the goods unless otherwise agreed in writing between the parties.
+                    </p>
+                    <p>
+                      Subject to clause 2.9, the Seller must receive payment for the total price of the Goods and any applicable charges for VAT and carriage before the Order can be accepted unless otherwise agreed in writing.
+                    </p>
+                    <p>
+                      Payment is required in advance for goods to be dispatched, unless a credit account is formally agreed and opened. In instances where a credit account is opened, payment is due strictly within 7 days of the invoice date. Orders using a credit account must be placed over the phone, as the website will not process any orders until payment is made.
+                    </p>
+                    <p>
+                      You can choose to pay by account, credit or debit card or PAYPAL and Bank Transfer.
+                    </p>
+                    <p>
+                      QTPack provide a telephone confirmation service for fax orders. If you wish to use this service, please request it at the time of ordering..
+                    </p>
+
+                    <h4>
+                      3 - Delivery and title :
+                    </h4>
+                    <p>
+                      Delivery of the Goods shall be made by the Seller to the address of the Buyer as stipulated on the Order, or by Buyer collecting the Goods at the Sellerâ€™s premises at any time after the Seller has notified the Buyer that the Goods are ready for collection. A signature indicating safe receipt of the Goods will be required on delivery or collection.
+                    </p>
+                    <p>
+                      Any dates quoted for delivery of the Goods are approximate only and the Seller shall not be liable for any delay in delivery of the Goods howsoever caused.
+                    </p>
+                    <p>
+                      If the Buyer fails to take delivery of the Goods then without limiting any other right or remedy available to the Seller, the Seller may store the Goods until actual delivery.
+                    </p>
+                    <p>
+                      Risk of damage to or loss of the Goods shall pass to the Buyer :
+                    </p>
+                    <ul>
+                      <li>
+                        in the case of Goods to be delivered at the Buyers premises, at the time of delivery or, if the Buyer wrongfully fails to take delivery of the Goods, the time when the Seller has tendered delivery of the Goods; or
+                      </li>
+                      <li>
+                        in the case of Goods the Buyer has requested the Seller to leave unattended at their requested delivery address when the Buyer is unable to take receipt of the goods and sign for the goods, at the time of delivery.
+                      </li>
+                    </ul>
+
+                    <p>
+                      Notwithstanding delivery and the passing of risk in the Goods, or any other provision of these Terms, the property in the Goods shall not pass to the Buyer until the Seller has received in cash or cleared funds payment in full of the price of the Goods together with any charges in respect of VAT and carriage..
+                    </p>
+                    <p>
+                      Until such time as the property in the Goods passes to the Buyer, the Seller may at any time require the Buyer to deliver up the Goods to the Seller, and if the Buyer fails to do so forthwith, enter on any premises of the Buyer or any third party where the Goods are stored and repossess the Goods.
+                    </p>
+                    <p>
+                      For orders received by 3pm for internet orders we aim to deliver by 6pm the next working day. Orders placed Monday to Thursday will be delivered the next working day. Orders received on Friday will be delivered the following Monday. Where Bank Holidays fall on a Friday and/or Monday your order will be delivered on the next working day.
+                    </p>
+                    <p>
+                      If your Postcode begins with AB31-38, AB41-56, HS1-9, IV1-63, KW1-17, PA20-88, PH9, PH10, PH15-50, ZE1-3, KA27-28, FK19-21, BT, TR21-25, JE, GY, IM1-9, PO30-41, and for the Republic of Ireland, please allow 3-5 days for delivery, and expect to pay an additional carriage charge. QTPack will not be held responsible for any delays.
+                    </p>
+                    <p>
+                      We cannot deliver to PO Boxes.
+                    </p>
+                    <h4>
+                      4 - Availability:
+                    </h4>
+                    <p>
+                      The Seller shall endeavour to hold sufficient stock to meet all Orders, however if there are insufficient stock to supply or deliver the Goods already paid for by the Buyer, the Seller shall, at its discretion, supply or deliver a substituted product or refund to the Buyer the price paid for the Goods as soon as possible and in any event within 30 days.
+                    </p>
+                    <p>
+                      Customised Products. The Seller shall be entitled to vary the quantity of any Customised Products by plus or minus 10% of the total Order, and refund/collect any difference in payment due accordingly.
+                    </p>
+                    <h4>
+                      5 - Cancellation and returns:
+                    </h4>
+                    <p>
+                      The Buyer shall be entitled to cancel the Order for Stocked Products by giving to the Seller notice of cancellation within 30 days of the date of collection or delivery. Such notice may be given by telephoning, faxing, emailing or mailing to the contact details below. If there is a defect or fault in the Goods, the Buyer is required to notify the Seller of the problem at the time of cancellation by calling 01708764022,  07424027442.
+                    </p>
+                    <p>
+                      <b>Contact details:</b>
+                    </p>
+                    <p>
+                      Phone: 123456789 Fax: 123456789, E-mail: sales@qtpack.co.uk
+                    </p>
+                    <p>
+                      On cancellation, the Buyer shall return the Goods to the Seller at its own cost unless the Goods are being returned because they are faulty, incorrect goods or because of unsuitable substitution by the Seller, in which case the Seller will meet the cost of return subject to being able to nominate the carrier.
+                    </p>
+                    <p>
+                      If the Buyer wishes to cancel an order for non-stocked products, this must be done before the order is confirmed. Non-stocked products cannot be returned once your order is confirmed.
+                    </p>
+                    <p>
+                      Where the Buyer returns Goods to the Seller for reasons other than such Goods being defective or faulty, The Seller will only accept unwanted products at its sole discretion within 30 days of delivery. The goods must be unopened, in a saleable condition.
+                    </p>
+                    <p>
+                      The Buyer is required to ensure that any Goods being returned to the Seller are safely and securely packaged to ensure that they are returned undamaged and suitable for re-sale. The Seller reserves the right to charge the Buyer for any Goods which it is unable to re-sell due to the Buyerâ€™s failure to comply with this clause 5.5. Goods are not Dispatched or Sold on a trial or return basis.
+                    </p>
+                    <p>
+                      On receipt of the returned goods the Seller will credit, exchange or refund the value of the goods to the Buyer, subject to clauses 5.3 - 5.5.
+                    </p>
+                    <p>
+                      Product warranty's do not include consumable parts or where products have been damaged through misuse. A credit or repair for returned products will only be issued after inspection and confirmation that the fault is covered by the manufacturer warranty. Please call us on 123456789 and we will issue a returns number for collecting the item. Standard carriage rates will be charged on returned products that do not fall within the warranty cover. Please note that where the item carries a 'return to base' manufacturers warranty as standard, it is the customers responsibility to return the machine to the manufacturer for repair in the event of malfunction, for any reason, at the customers cost, under the terms of the manufacturers warranty.
+                    </p>
+                    <p>
+                      A claim by the Buyer which is based on any defect in the quality, quantity or condition of the Goods shall be notified to the Seller in accordance with clause 5.1 or (where the defect or failure was not apparent on reasonable inspection) within 14 days of the discovery of the defect or failure but not exceeding 30 days from the date of delivery.
+                    </p>
+                    <p>
+                      If delivery is not refused and the Buyer does not notify the Seller accordingly, the Buyer shall have no right to reject the Goods and the Seller shall have no liability for such defect or failure, and the Buyer shall be bound to pay the price as if the Goods had been delivered in accordance with the contract.
+                    </p>
+                    <p>
+                      Inspection of goods immediately on receipt of a delivery is recommended. Damage or short delivery must be notified to the Seller within three days.
+                    </p>
+                    <p>
+                      Goods that are refused as damaged must be signed for â€œGoods refused damagedâ€_x009d_ on the carrierâ€™s delivery paperwork; Goods that are accepted but are damaged must be signed for â€œGoods damagedâ€_x009d_; Goods that are short must be signed for â€œGoods received shortâ€_x009d_ and the Buyer must amend the number of items delivered on the carrierâ€™s delivery paperwork.
+                    </p>
+                    <p>
+                      Damaged or short deliveries must not be signed for as â€œUncheckedâ€_x009d_ on the carrierâ€™s delivery paperwork.
+                    </p>
+                    <p>
+                      Where the Buyer does notify the Seller that there is a valid claim in respect of any of the Goods the Seller will, on receipt of the returned goods identify the fault or damage and otherwise inspect the goods.
+                    </p>
+                    <p>
+                      The Seller may replace, repair or refund to the Buyer the price of the Goods at its discretion, in which case the Seller shall have no further liability to the Buyer. For the sake of clarity, the Seller shall not be liable to the Buyer for any loss of profits, administrative inconvenience, disappointment, indirect or consequential loss or damage arising out of any problem in relation to the Goods and shall have no liability to pay any money to the Buyer by way of compensation other than any refund made under these Terms. This does not affect your statutory rights as a consumer, nor is it intended to exclude the Sellerâ€™s liability to you for fraudulent misrepresentation or for death or personal injury resulting from our negligence.
+                    </p>
+                    <p>
+                      Subject to clauses 6.3 and 6.5 the Seller warrants that the Goods will be free from defects in material and workmanship for a period of 6 months from the date of delivery unless otherwise stated in writing.
+                    </p>
+                    <p>
+                      The warranty is given by the Seller subject to the following conditions :
+                    </p>
+                    <p>
+                      The Seller shall be under no liability in respect of any defect in the Goods arising from any drawing or specification supplied by the Buyer.
+                    </p>
+                    <p>
+                      The Seller shall be under no liability in respect of any defect arising from fair wear and tear, wilful damage, negligence, abnormal working conditions, external force, damage caused by the Buyer or any other party, or damage caused by the incorrect installation, use, modification or repair of the Goods.
+                    </p>
+                    <p>
+                      The Seller shall be under no liability under the above warranty if the total price for the Goods has not been paid by the due date for payment.
+                    </p>
+                    <p>
+                      The above warranty does not extend to parts, materials or equipment not manufactured by the Seller.
+                    </p>
+                    <p>
+                      The above warranty is given solely to the Buyer and is not transferable to any third party.
+                    </p>
+                    <h4>
+                      7 - Termination:
+                    </h4>
+                    <p>
+                      The Seller shall be entitled to suspend further supply or delivery, stop any goods in transit or immediately terminate the contract with the Buyer by notice in writing if the Buyer is in breach of an obligation hereunder or becomes unable to pay its debts when they fall due or proceedings are commenced by or against it alleging bankruptcy or insolvency.
+                    </p>
+                    <h4>
+                      8 - Events beyond our control :
+                    </h4>
+                    <p>
+                      The Seller shall have no liability to the Buyer for any failure or delay in supply or delivery or for any damage or defect to the Goods supplied or delivered hereunder that is caused by any event or circumstance beyond its reasonable control (including without limitation strikes, lockouts, acts of God and the like.
+                    </p>
+                    <h4>
+                      9 - General :
+                    </h4>
+                    <p>
+                      If any part of these conditions is invalid, illegal or unenforceable (including any provision in which the Seller excludes its liability to you, the Buyer) the validity, legality or enforceability of any other part of these conditions will not be affected. This contract shall be governed by and interpreted in accordance with English Law.
+                    </p>
+                    <p>
+                      QTPack  The company is registered in England, Company No. 11695930, VAT No. GB 311423065, with registered offices at :207 Gorsway, Romford, England, RM7 0SB
+                    </p>
+                    <p>
+                      Your privacy. As part of our ongoing commitment to providing you with the highest levels of quality and service, some calls may be monitored or recorded for staff training requirements.
+                    </p>
+                    <p>
+                      Data Protection. If we have obtained your details from our customer list, enquirer records or from a third party business list, we may use your details to contact you from time to time to inform you of our products or services which may be of interest to you. If you wish to change any of your information or do not wish to continue to be part of our marketing programme please write or e-mail, using the contact details below.
+                    </p>
+                    <b>
+                      E-mail: sales@Qtpack.co.uk
+                    </b>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="privacyModalLabel">Terms</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container ">
+            <div class="row">
+              <div class="col-12 text-center mb-3">
+                <h2>Payment</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 mb-3">
+                <div class="card">
+                  <div class="card-body">
+                    <p>
+                      We accept all major debit and credit cards as well as payments via PayPal for all online orders. To make payment by BACS , please call us on 01708764022,  07424027442 or email us on sales@globepackaging.co.uk
+                    </p>
+                    <p>
+                      During checkout, you can choose to create an online account with ourselves and pay with debit/credit card, or via PayPal. Alternatively, you can simply order via the two-step PayPal express checkout option.
+                    </p>
+                    <p>
+                      We recommend creating an online account with ourselves and checking out via your account, as you are then able to log in to your account at any time and check your order history, as well as repeat previous orders.
+                    </p>
+                    <p>
+                      To place an order, simply choose the items you desire and add them to your basket. Once you have all the packaging products you need, click onto your basket which displays your order, delivery price and total amount payable. Note that all orders over £75 (exc VAT) qualify for free next working day delivery.
+                    </p>
+                    <p>
+                      For any queries please contact our customer service team on 01708764022,  07424027442.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>

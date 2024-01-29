@@ -1,0 +1,78 @@
+<main class="mainBody">
+    <div class="pageBanner d-none d-lg-block">
+      <div class="container">
+        <div class="row mb-3 gx-2">
+          <div class="col-sm-8 mb-2">
+            <img src="assets/images/banners/Banners-01.jpg" class="img-fluid" alt="banner1.png">
+          </div>
+          <div class="col-sm-4 mb-2">
+              <div class="row justify-content-between d-flex flex-row h-100 gap-lg-2 gx-1 gx-lg-0">
+                <div class="col-6 col-sm-6 col-md-12">
+                  <img src="assets/images/banners/Banners-02.jpg" class="img-fluid" alt="banner1.png">
+                </div>
+                <div class="col-6 col-sm-6 col-md-12">
+                  <img src="assets/images/banners/Banners-03.jpg" class="img-fluid" alt="banner1.png">
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--confidence component-->
+    <div class="confidence">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 mb-1">
+            <img src="assets/images/banners/Banners-04.jpg" class="img-fluid" alt="banner1.png">
+          </div>
+          <div class="col-lg-4 mb-1">
+            <img src="assets/images/banners/Banners-05.jpg" class="img-fluid" alt="banner1.png">
+          </div>
+          <div class="col-lg-4 mb-1">
+            <img src="assets/images/banners/Banners-06.jpg" class="img-fluid" alt="banner1.png">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--confidence component-->
+
+    <!--productGrid Component-->
+    <div class="productGrid">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-3" *ngFor="let product of products;">
+            <div class="singleProduct" (click)="openProductDetail(product.product_id)">
+              <!--          overlay with Button-->
+              <div class="productOverlay">
+                <button class="btn-secondary btn" (click)="openProductDetail(product.product_id)">
+                  View Details
+                </button>
+              </div>
+              <!--          overlay with Button-->
+              <!--          New Tag on Product-->
+              <div class="newProduct">
+                <p>New</p>
+              </div>
+              <!--          New Tag on Product-->
+              <div class="productImg">
+                <img
+                src="{{product.image_url}}"
+                  alt="">
+              </div>
+              <div class="productInfo">
+                <div class="productName">
+                  <h3>
+                    {{product.name}}
+                  </h3>
+                </div>
+                <div class="viewRange">
+                  <!-- <span>From</span> <label>$452</label> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--productGrid Component-->
+  </main>

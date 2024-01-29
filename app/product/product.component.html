@@ -1,0 +1,115 @@
+<div class="mainBody">
+  <!--productGrid Component-->
+
+  <div class="container">
+      <div class="row">
+          <div class="col">
+              <div class="productGrid">
+                  <div class="sidebarSqi">
+                      <ul class="nav-links">
+                          <li class="showMenu" *ngFor="let category of categories;">
+                              <div class="iocn-link">
+                                  <a href="javascript:void(0)" (click)="openCategoryDetail(category.slug)">
+                                    <i class='bx bx-package'></i>
+                                      <span class="link_name">{{category.name}}</span>
+                                  </a>
+                                  <i class='bx bxs-chevron-down arrow'></i>
+                              </div>
+                              <ul class="sub-menu" *ngIf="category.subCategories.length > 0">
+                                  <li *ngFor="let subCategory1 of category.subCategories;">
+                                      <a href="javascript:void(0)" (click)="openCategoryDetail(subCategory1.slug)"><label>{{subCategory1.name}}</label></a>
+                                      <ul class="sub-menu" *ngIf="subCategory1.subCategories.length > 0">
+                                          <li *ngFor="let subCategory2 of subCategory1.subCategories;">
+                                              <a href="javascript:void(0)" (click)="openCategoryDetail(subCategory2.slug)"><b class='bx bx-stop'></b> <label>{{subCategory2.name}}</label>  </a>
+                                              <ul class="sub-menu" *ngIf="subCategory2.subCategories.length > 0">
+                                                  <!-- <li><a class="link_name" href="#">Choose the Color</a></li> -->
+                                                  <li *ngFor="let subCategory3 of subCategory2.subCategories;">
+                                                      <a href="javascript:void(0)"  (click)="openCategoryDetail(subCategory3.slug)"><b class='bx bx-stop'></b>  <label>{{subCategory3.name}}</label> </a>
+                                                  </li>
+                                              </ul>
+                                          </li>
+                                      </ul>
+                                  </li>
+                              </ul>
+                          </li>
+                      </ul>
+                  </div>
+
+                  <div class="home-section">
+                      <div class="home-content d-md-none">
+                          <i class='bx bx-menu '></i>
+                      </div>
+                      <div class="container pr-lg-0">
+                          <div class="row">
+                              <div class="col-12">
+                                  <div class="card mb-3">
+                                      <div class="card-body">
+                                          <h5 class="card-title">{{category.name}}</h5>
+                                          <h5 class="card-title" *ngIf="search">Results for: {{search}}</h5>
+                                          <p class="card-text">
+                                              {{category.description}}
+                                          </p>
+                                          <p class="card-text"  *ngIf="products.length==0">
+                                            Products not found or not available right now.
+                                        </p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- <div class="col-12">
+                                <div class="row mb-3 gx-2">
+                                  <div class="col-sm-8 mb-2">
+                                    <img src="assets/images/banner1.png" class="img-fluid h-100" alt="banner1.png">
+                                  </div>
+                                  <div class="col-sm-4 mb-2">
+                                    <div class="row justify-content-between d-flex flex-lg-column flex-row h-100 gap-lg-2 gx-1 gx-lg-0">
+                                      <div class="col-6 col-sm-6 col-md-12">
+                                        <img src="assets/images/banner1.png" class="img-fluid" alt="banner1.png">
+                                      </div>
+                                      <div class="col-6 col-sm-6 col-md-12">
+                                        <img src="assets/images/banner1.png" class="img-fluid" alt="banner1.png">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div> -->
+                          </div>
+
+                          <div class="row">
+                              <div class="col-12 col-md-6 col-lg-4" *ngFor="let product of products;">
+                                  <div class="singleProduct" (click)="openProductDetail(product.product_id)">
+                                      <!--          overlay with Button-->
+                                      <div class="productOverlay">
+                                          <button class="btn btn-secondary" (click)="openProductDetail(product.product_id)"> <!--(click)="openCategoryDetail(product.slug)"-->
+                                              View Details
+                                          </button>
+                                      </div>
+                                      <!--          overlay with Button-->
+                                      <!--          New Tag on Product-->
+                                      <div class="newProduct">
+                                          <p>New</p>
+                                      </div>
+                                      <!--          New Tag on Product-->
+                                      <div class="productImg">
+                                          <img src="{{product.image_url}}"
+                                              alt="">
+                                      </div>
+                                      <div class="productInfo">
+                                          <div class="productName">
+                                              <h3>
+                                                  {{product.name}}
+                                              </h3>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--productGrid Component-->
+
+
+</div>

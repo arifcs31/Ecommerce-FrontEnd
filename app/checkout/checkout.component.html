@@ -1,0 +1,226 @@
+<main class="mainBody">
+  <div class="checkoutPage" *ngIf="cart && cart.cartIems && cart.cartIems.length<=0">
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <h4 class="mb-4">No cart found</h4>
+          <button class="btn-secondary btn" (click)="openHome()">Start Shopping!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--CheckOut Page Start -->
+  <div class="checkoutPage" *ngIf="cart && cart.cartIems && cart.cartIems.length>0">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <h5 class="mb-3 mb-sm-0">
+                  Your Active Basket
+                </h5>
+                <div class="flex-wrap d-flex justify-content-end">
+                  <button class="btn-secondary btn mr-md-1 mb-1 mb-md-0" (click)="openHome()">Continue Shopping</button>
+                  <button class="btn btn-primary" (click)="openSignup_Login()">Checkout</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="table-responsive mb-4 border border-bottom-0">
+            <table width="100%">
+              <thead>
+              <tr>
+                <td width="10%" align="left">Product</td>
+                <td width="30%" align="center">Item</td>
+                <td width="10%" align="center">Price</td>
+                <td width="10%" align="center">Pack Size</td>
+                <td width="10%" align="center">No, of Pack</td>
+                <td width="10%" align="center">Total Price</td>
+                <td width="10%" align="center">Remove All</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of cart.cartIems;let first = first;let index = index;">
+                <td width="10%" align="left">
+                  <div class="checkoutItemThumbnail">
+                    <img src="{{item.product.image_url}}" alt="">
+                  </div>
+                </td>
+                <td width="30%" align="center">
+                  <p class="mb-0">
+                    {{item.product.name}}
+                  </p>
+                </td>
+                <td width="10%" align="center">
+                  <p class="mb-0">
+                      <span class="text-bold">
+                        £{{item.price}}
+                      </span>ex.VAT
+                  </p>
+                </td>
+                <td width="10%" align="center">
+                  <!-- <select class="form-select mini-select m-0" aria-label="Default select example">
+                    <option selected>Value</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select> -->
+                  <p class="mb-0">
+                    <span class="text-bold">
+                      {{item.qty}}
+                    </span>
+                  </p>
+                </td>
+                <td width="10%" align="center">
+                  <p class="mb-0">
+                    <span class="text-bold">
+                      <input [(ngModel)]="item.count" class="form-control mb-3" type="number" min="1" max="1000"  (blur)="ModifyCart(item)"
+                                   placeholder="">
+                    </span>
+                  </p>
+                </td>
+                <td width="10%" align="center">
+                  <p class="mb-0">
+                    <span class="text-bold">
+                      £{{item.total_price}}
+                    </span>ex.VAT
+                  </p>
+                </td>
+
+                <td width="10%" align="center" data-toggle="modal" data-target="#exampleModal">
+                  <div class="closeBtn" (click)="ToBeDeleted(item.product_id,item.product_price_id)">
+                    X
+                  </div>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-body">
+                          <h4 class="mb-4">
+                            Are you sure?
+                          </h4>
+                          <div>
+                            <button class="btn btn-secondary" (click)="RemoveItem(item.product_id,item.product_price_id)"> Yes</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--CheckOut Page End -->
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 col-md-7 col-sm-6 col-12">
+          <!-- <div class="card mb-3">
+            <div class="card-body">
+              <h4>
+                Note:
+              </h4>
+              <p class="card-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis cupiditate deleniti
+                distinctio dolore doloremque eligendi eos et eum facere id minus mollitia placeat provident qui
+                recusandae
+                suscipit, voluptates? Quam.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis cupiditate deleniti
+                distinctio dolore doloremque eligendi eos et eum facere id minus mollitia placeat provident qui
+                recusandae
+                suscipit, voluptates? Quam.
+              </p>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4>
+                Discount Code:
+              </h4>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Code" aria-label="Recipient's username"
+                       aria-describedby="button-addon2">
+                <button class="btn btn-secondary" type="button" id="button-addon2">Button</button>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h4 class="headingWithLead">
+                <span>
+                  Loyalty Points Balance
+                </span>
+                <span>
+                  (Displayed after you are Logged In).
+                </span>
+              </h4>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Code" aria-label="Recipient's username"
+                       aria-describedby="button-addon2">
+                <button class="btn btn-secondary" type="button" id="button-addon2">Button</button>
+              </div>
+              <div class="">
+                <b>Note :</b> You will get 12 Loyalty Points in your account on successful payment completion of this
+                order.
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <div class="col-lg-8 col-md-5  col-sm-6 col-12">
+          <div class="card">
+            <div class="card-body">
+              <ul class="p-0">
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">Items</label>
+                    <p class="RightValue mb-0">£{{cart.subTotal}}</p>
+                  </div>
+                </li>
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold ">
+                      Delivery Fee
+                    </label>
+                    <div>
+                      <!-- <select class="form-select mini-select mb-1" aria-label="Default select example">
+                        <option selected>Time</option>
+                        <option value="1">1 Day</option>
+                        <option value="2">2 Day</option>
+                        <option value="3">3 Day</option>
+                      </select> -->
+                      <p class="RightValue mb-0 text-end"><span>£{{cart.deliveryFee}}</span></p>
+                    </div>
+                  </div>
+                </li>
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">VAT ({{cart.taxPercentage}}%):</label>
+                    <p class="RightValue mb-0" text-end> <span>£{{cart.totalTax}}</span></p>
+                  </div>
+                </li>
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">Total</label>
+                    <p class="RightValue mb-0">£{{cart.total}}</p>
+                  </div>
+                </li>
+              </ul>
+              <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-secondary" (click)="openSignup_Login()">Checkout</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

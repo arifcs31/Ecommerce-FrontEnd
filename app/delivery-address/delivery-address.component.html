@@ -1,0 +1,332 @@
+<main class="mainBody">
+  <div class="checkoutPage">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card  mb-4">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div class=" d-flex align-items-center">
+                  <button class="btn btn-secondary btn-sm d-flex mr-2 justify-content-center" (click)="back()">
+                    <span class="material-symbols-outlined">
+                      arrow_back
+                    </span>
+                  </button>
+                  <p class="fw-bold mb-0">
+                    Your Billing & Delivery Details
+                  </p>
+                </div>
+                <div class="flex-wrap d-flex justify-content-end gap-2">
+                  <img src="images/secure-ssl-encryption.png" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4>
+                Order Summary
+              </h4>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4>
+                Billing Address
+              </h4>
+              <p class="card-text" *ngIf="selectedAddress.address">
+                {{selectedAddress.region}} {{selectedAddress.address}}, {{selectedAddress.town}}, {{selectedAddress.region}}
+                , {{selectedAddress.post_code}}
+              </p>
+              <p class="card-text" *ngIf="!selectedAddress.address">
+                No Address Selected
+              </p>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <ul class="p-0" [class.pt-3]="!first" [class.border-top]="!first"
+                  *ngFor="let item of cart.cartIems;let first = first;let index = index;">
+                <li class="mb-2">
+                  <p class="finalProductName">{{item.product.name}}</p>
+                </li>
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">Pack Size</label>
+                    <p class="RightValue mb-0">{{item.qty}}</p>
+                  </div>
+                </li>
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">No of pack</label>
+                    <p class="RightValue mb-0">{{item.count}}</p>
+                  </div>
+                </li>
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">Price</label>
+                    <p class="RightValue mb-0">£{{item.total_price}}</p>
+                  </div>
+                </li>
+              </ul>
+              <ul class="px-0 border-top pt-3">
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">Sub Total</label>
+                    <p class="RightValue mb-0">£{{cart.subTotal}}</p>
+                  </div>
+                </li>
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">Delivery</label>
+                    <p class="RightValue mb-0">£{{cart.deliveryFee}}</p>
+                  </div>
+                </li>
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">Vat</label>
+                    <p class="RightValue mb-0">£{{cart.totalTax}}</p>
+                  </div>
+                </li>
+                <li class="mb-2">
+                  <div class="checkoutCardData">
+                    <label class="fw-bold leftValue mb-0">Total</label>
+                    <p class="RightValue mb-0">£{{cart.total}}</p>
+                  </div>
+                </li>
+                <li>
+                  <!-- <div class="mt-3">
+                    <h4>
+                      Delivery Note:
+                    </h4>
+                    <p class="card-text">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis cupiditate deleniti
+                      distinctio dolore doloremque eligendi eos et eum facere id minus mollitia placeat provident qui
+                      recusandae.
+                    </p>
+                  </div> -->
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <label class="fw-bold mb-3 mb-sm-0" style="color: red;">
+                  Select Your Delivery Address
+                </label>
+                <div class="flex-wrap d-flex justify-content-end gap-2">
+                  <button (click)="openModal()" class="btn btn-secondary" data-toggle="modal"
+                          data-target="#addAddressModal">
+                    Add Address
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="card mb-3" *ngFor="let item of addressList;let first = first;let index = index;">
+            <div class="card-body">
+              <div class="d-flex flex-wrap justify-content-between align-items-center flex-wrap">
+                <div class="">
+                  <h3 class="fw-bold mb-3">
+                    <!-- Delivery Address -->
+                  </h3>
+                  <label for="" class="fw-bold mb-2">{{item.reference}}</label>
+                  <ul class="p-0">
+                    <li>{{item.contact_name}}</li>
+                    <li>{{item.region}}</li>
+                    <li>{{item.address}}</li>
+                    <li>{{item.town}}</li>
+                    <li>{{item.post_code}}</li>
+                    <li>{{item.country}}</li>
+                    <li>{{item.phone}}</li>
+                  </ul>
+                  <button data-target="#addAddressModal" data-toggle="modal"
+                          class="btn btn-primary btn-sm mt-3 mb-1 mb-md-0" (click)="getAddress(item.address_id)">Edit
+                  </button>
+                </div>
+
+                <div class="flex-wrap d-flex flex-column justify-content-end gap-2">
+                  <button class="btn btn-secondary mb-1" data-toggle="modal" (click)="AssignAddress(item.address_id)">
+                    Deliver to this Address
+                  </button>
+                  <button class="btn btn-secondary" data-toggle="modal" (click)="MarkAsBillingAddress(item.address_id)" *ngIf="addressList.length>1 && item.type!='Billing'">
+                    Mark as billing
+                  </button>
+                </div>
+                <!-- <div class="flex-wrap d-flex justify-content-end gap-2" >
+
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<div class="modal fade" [class.show]="tab" [class.active]="tab" id="addAddressModal"
+     aria-labelledby="addAddressModalLabel" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="EditAddressModalLabel">Add/Update Address</h5>
+        <button type="button" class="btn-close bg-none border-0" data-dismiss="modal" aria-label="Close">
+          <span class="material-symbols-outlined">
+            close
+            </span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="deliveryForm" (ngSubmit)="onDeliverySubmit()" novalidate>
+
+          <div class="form-group">
+            <label for="" class="form-label">Reference* E.g. (Home/Office)
+              <span class="mx-1 d-inline-block" data-toggle="tooltip" data-bs-placement="top"
+                    title="Reference name which is saved for future use. e.g. Home, Office.">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-info-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path
+                  d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+              </svg>
+              </span>
+            </label>
+            <input formControlName="reference" class="form-control mb-3" type="text" placeholder="Reference">
+            <div class="invalid-feedback"
+                 *ngIf="deliveryForm.controls['reference'].invalid && (deliveryForm.controls['reference'].dirty || deliveryForm.controls['reference'].touched)"
+                 class="alert text-danger">
+              <div *ngIf="deliveryForm.controls['reference'].errors">
+                Reference is required. (1-100) Characters
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="" class="form-label">Contact Name:
+            </label>
+            <input formControlName="contact_name" class="form-control mb-3" type="text"
+                   placeholder="">
+            <div class="invalid-feedback"
+                 *ngIf="deliveryForm.controls['contact_name'].invalid && (deliveryForm.controls['contact_name'].dirty || deliveryForm.controls['contact_name'].touched)"
+                 class="alert text-danger">
+              <div *ngIf="deliveryForm.controls['contact_name'].errors">
+                Contact Name is required. (1-100) Characters
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="" class="form-label">Post Code:
+            </label>
+            <div class="input-group">
+              <input type="text" formControlName="postCode" class="form-control" placeholder="Fill with postCode"
+                     aria-label="Recipient's username" aria-describedby="button-Region">
+              <button class="btn btn-primary" type="button" id="button-Region" (click)="findAddress()">Find</button>
+              <span>{{erroMsg}}</span>
+            </div>
+          </div>
+          <div class="form-group mb-3" *ngIf="tempAddressList && tempAddressList.length > 0">
+            <label for="" class="form-label" style="color:red ;">Select address from following:
+            </label>
+          <select #adr class="form-select mini-select m-0" aria-label="Default select example" (change)="selectAddress(adr.value)">
+            <option value="{{index}}" *ngFor="let address of tempAddressList;let index = index;">
+                    {{address.line_1}} {{address.building_number}} {{address.building_name}} {{address.thoroughfare}} {{address.post_town}} {{address.post_town}} {{address.country}}
+            </option>
+          </select>
+        </div>
+          <!-- <div class="form-group mb-3">
+            <label for="" class="form-label">Company Name:
+            </label>
+            <input formControlName="company_name" class="form-control" type="text" placeholder="Company">
+          </div> -->
+          <div class="form-group mb-3">
+            <label for="" class="form-label">House# or name:
+            </label>
+            <input formControlName="region" class="form-control" type="text" placeholder="House# or name">
+          </div>
+          <div class="form-group mb-3">
+            <label for="" class="form-label">Address:
+            </label>
+            <textarea formControlName="address" class="form-control" placeholder="Address" name="" id="" cols="30"
+                      rows="3"></textarea>
+            <div class="invalid-feedback"
+                 *ngIf="deliveryForm.controls['address'].invalid && (deliveryForm.controls['address'].dirty || deliveryForm.controls['address'].touched)"
+                 class="alert text-danger">
+              <div *ngIf="deliveryForm.controls['address'].errors">
+                Address is required. (1-500) Characters
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="" class="form-label">Town:
+            </label>
+            <input formControlName="town" class="form-control" type="text" placeholder="Town">
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="" class="form-label">Country:
+            </label>
+            <input formControlName="country" class="form-control" type="text" placeholder="Country">
+            <div class="invalid-feedback"
+                 *ngIf="deliveryForm.controls['country'].invalid && (deliveryForm.controls['country'].dirty || deliveryForm.controls['country'].touched)"
+                 class="alert text-danger">
+              <div *ngIf="deliveryForm.controls['country'].errors">
+                Country is required. (1-50) Characters
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="" class="form-label">PostCode:
+            </label>
+            <input formControlName="post_code" class="form-control" type="text" placeholder="Postcode">
+            <div class="invalid-feedback"
+                 *ngIf="deliveryForm.controls['post_code'].invalid && (deliveryForm.controls['post_code'].dirty || deliveryForm.controls['post_code'].touched)"
+                 class="alert text-danger">
+              <div *ngIf="deliveryForm.controls['post_code'].errors">
+                PostCode is required. (1-100) Characters
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="" class="form-label">Contact Number:
+            </label>
+            <input formControlName="phone" class="form-control" type="text" placeholder="+1 00 000 0000" minlength="10" maxlength="15">
+            <div class="invalid-feedback"
+                 *ngIf="deliveryForm.controls['phone'].invalid && (deliveryForm.controls['phone'].dirty || deliveryForm.controls['phone'].touched)"
+                 class="alert text-danger">
+              <div *ngIf="deliveryForm.controls['phone'].errors">
+                Phone is required. (1-14) Characters
+              </div>
+            </div>
+            <p class="lead-text">
+              Your telephone number will only be used by our courier service or our customer service staff if required.
+            </p>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" data-dismiss="modal" [disabled]="!this.deliveryForm.valid">Save Address
+            </button>
+          </div>
+          <!-- <p>myForm value: {{ deliveryForm.value | json }}</p>
+          <p>{{getFormValidationErrors(deliveryForm)}}</p>
+<p>myForm status: {{ deliveryForm.status | json }}</p> -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal for Address-->

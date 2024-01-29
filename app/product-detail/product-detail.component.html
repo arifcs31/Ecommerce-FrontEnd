@@ -1,0 +1,406 @@
+<!--product Details-->
+<main class="mainBody">
+  <div class="productDetails">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active" (click)="openCategorBack()"><a href="javascript:void(0)">{{product.category.name}}</a></li>
+              <li class="breadcrumb-item d-flex"><a href="javascript:void(0)">{{product.name}}</a></li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-5 col-md-12">
+          <div class="image-gallery-g mb-3">
+            <aside class="thumbnails-g">
+              <span class="selected thumbnail-g" [attr.data-big]="product.image_url">
+                <div class="thumbnail-image-g" style="background-image: url({{product.image_url}})"></div>
+              </span>
+              <!-- <span class="thumbnail-g" data-big="assets/images/banner.jpg">
+                <div class="thumbnail-image-g" style="background-image: url(assets/images/banner.jpg)"></div>
+              </span>
+              <span class="thumbnail-g" data-big="assets/images/Dummy.jpg">
+                <div class="thumbnail-image-g" style="background-image: url(assets/images/Dummy.jpg)"></div>
+              </span> -->
+            </aside>
+
+            <main class="primary-g" style="background-image: url('{{product.image_url}}');"></main>
+          </div>
+          <div class="widgetBanner d-none d-lg-block">
+            <img src="assets/images/banners/Banners-01.jpg" class="img-fluid h-100" alt="banner1.png">
+          </div>
+        </div>
+        <div class="col-lg-7 col-md-12">
+          <h3>
+            Product Title
+          </h3>
+          <h5 class="md:mb-4 mb-3">
+            Select the Size:
+          </h5>
+
+<!--Table for Mobile Starttttttt-->
+          <div class="d-flex d-lg-none mb-3">
+            <div class="dropdown selectCustom">
+              <button class="dropdown-toggle selectCustomBtn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{state}}
+              </button>
+              <button class="dropdown-toggle selectCustomBtn" type="button" (click)="ViewMoreOpions()" *ngIf="showMoreOptions" >
+                View More Variations
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" (click)="CurrentState(price)" href="javascript:void(0)" *ngFor="let price of priceRanges;let first = first;let index = index;">{{price.size1}} ({{price.size2}})</a>
+              </div>
+            </div>
+          </div>
+          <div [ngStyle]="{'display': selectedSize ==  price.size1? 'block' : 'none'}" *ngFor="let price of priceRanges;let first = first;let index = index;">
+          <div  class="sectionForTable d-flex d-lg-none"  >
+            <div>
+                <ul>
+                  <li>
+                    <table width="100%">
+                      <thead>
+                      <tr>
+                        <td width="30%" align="left">Pack Size</td>
+                        <td width="15%" align="center">Points</td>
+                        <td width="25%" align="center">Price</td>
+                        <td width="30%" align="center">Buy</td>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr  *ngFor="let pack of price.packs;">
+                        <td width="30%" align="left">
+                          <select   class="form-control mini-select m-0" aria-label="Default select example" >
+                            <option value="pack_value" *ngFor="let pack_value of pack.pack_range;">
+                              {{pack_value}}
+                            </option>
+                          </select>
+                          <div class="text-center">
+                            <!-- <p class="mb-0">
+                              Only $0.15
+                            </p> -->
+                            <span class="text-danger">Best Value</span>
+                          </div>
+                        </td>
+                        <td width="15%" align="center">
+                          <p class="mb-0">1</p>
+                        </td>
+                        <td width="25%" align="center">
+                          <p class="mb-0">
+                            <span class="text-bold">
+                              £{{pack.price}}
+                            </span>ex.VAT
+                          </p>
+                        </td>
+                        <td width="30%" align="center">
+                          <button *ngIf="IsItemSelected(pack.product_price_id) == false" class="btn btn-secondary btn-sm btn-block" style="font-size: 13px;" (click)="AddToCart(pack)">Add +</button>
+                          <button *ngIf="IsItemSelected(pack.product_price_id) == true"  class="btn btn-secondary btn-sm btn-block" style="font-size: 13px;">Item Added</button>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </li>
+                </ul>
+              </div>
+          </div></div>
+<!--Table for Mobile Endddddddd-->
+<!--Table For Web Starttttt-->
+          <div class="sectionForTable d-none d-lg-flex">
+            <div class="d-flex align-items-start flex-lg-row flex-column">
+              <div class="nav flex-lg-column flex-row nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <button *ngFor="let price of priceRanges;let first = first;let index = index;"
+                [ngClass]="{'active' : first}"
+                [attr.data-target]="'#c'+index"
+                class="nav-link border-0" attr.id="{{index}}-tab"  data-toggle="pill"
+                         type="button" role="tab" [attr.aria-controls]="'c'+index"
+                        aria-selected="true">
+                  <h4 class="active">
+                    <label>{{price.size1}}</label>
+                    <p>{{price.size2}}</p>
+                  </h4>
+                </button>
+                <button *ngIf="showMoreOptions" (click)="ViewMoreOpions()"
+                class="nav-link border-0"   data-toggle="pill"
+                         type="button" role="tab" 
+                        aria-selected="true">
+                  <h4 class="active">
+                    <label>View More Variations</label>
+                  </h4>
+                </button>
+              </div>
+              <div class="tab-content" id="v-pills-tabContent">
+                <div *ngFor="let price of priceRanges;let first = first;let index = index" class="tab-pane fade" attr.id="c{{index}}" role="tabpanel"
+                     [attr.aria-labelledby]="index+'-tab'"
+                     [ngClass]="{'active show' : first}">
+                  <div>
+                    <ul>
+                      <li>
+                        <table width="100%">
+                          <thead>
+                          <tr>
+                            <td width="30%" align="left">Pack Size</td>
+                            <td width="20%" align="center">Points</td>
+                            <td width="25%" align="center">Price</td>
+                            <td width="25%" align="center">Buy</td>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr  *ngFor="let pack of price.packs;">
+                            <td width="30%" align="left">
+                              <select class="form-control mini-select m-0" aria-label="Default select example">
+                                <option value="pack_value" *ngFor="let pack_value of pack.pack_range;">
+                                        {{pack_value}}
+                                </option>
+                              </select>
+                              <div class="text-center">
+                                <!-- <p class="mb-0">
+                                  Only $0.15
+                                </p> -->
+                                <span class="text-danger">Best Value</span>
+                              </div>
+                            </td>
+                            <td width="20%" align="center">
+                              <p class="mb-0">1</p>
+                            </td>
+                            <td width="25%" align="center">
+                              <p class="mb-0">
+                            <span class="text-bold">
+                              £{{pack.price}}
+                            </span>ex.VAT
+                              </p>
+                            </td>
+                            <td width="25%" align="center">
+                              <button *ngIf="IsItemSelected(pack.product_price_id) == false" class="btn btn-secondary btn-sm btn-block" (click)="AddToCart(pack)">Add +</button>
+                              <button *ngIf="IsItemSelected(pack.product_price_id) == true" class="btn btn-secondary btn-sm btn-block">Item Added</button>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                  ...
+                </div>
+                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                  ...
+                </div>
+                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                  ...
+                </div>
+              </div>
+            </div>
+          </div>
+<!--Table for web Endddddddd-->
+
+          <div class="productMoreInfo themeHorizontalTab">
+            <h3 class="md:mb-4 mb-3">
+              More Info:
+            </h3>
+            <ul class="nav nav-tabs" id="productDescriptionTable" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="description-tab" data-toggle="tab" data-target="#description"
+                        type="button" role="tab" aria-controls="description" aria-selected="true">Description
+                </button>
+              </li>
+              <!-- <li class="nav-item" role="presentation">
+                <button class="nav-link" id="specification-tab" data-toggle="tab" data-target="#specification"
+                        type="button" role="tab" aria-controls="specification" aria-selected="false">Specification
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="usage-tab" data-toggle="tab" data-target="#usage" type="button"
+                        role="tab" aria-controls="usage" aria-selected="false">Uses
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="userReview-tab" data-toggle="tab" data-target="#userReview"
+                        type="button" role="tab" aria-controls="userReview" aria-selected="false">User Review
+                </button>
+              </li> -->
+              <!-- <li class="nav-item" role="presentation">
+                <button class="nav-link" id="getPrint-tab" data-toggle="tab" data-target="#getPrint" type="button"
+                        role="tab" aria-controls="getPrint" aria-selected="false">Get Print
+                </button>
+              </li> -->
+            </ul>
+            <div class="tab-content" id="productDescriptionTableContent">
+              <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                <div class="themeListing">
+                  <ul>
+                    <li>
+                     {{product.description}}
+                    </li>
+                    <!-- <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li> -->
+                  </ul>
+                </div>
+                <!-- <div class="themeListing">
+                  <ul>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                  </ul>
+                </div> -->
+
+                <!-- <h3>Other Specification</h3>
+
+                <div class="themeListing">
+                  <ul>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                  </ul>
+                </div> -->
+              </div>
+              <!-- <div class="tab-pane fade" id="specification" role="tabpanel" aria-labelledby="specification-tab">
+                <div class="themeListing">
+                  <ul>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                  </ul>
+                </div>
+
+                <h3>Other Specification</h3>
+
+                <div class="themeListing">
+                  <ul>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="usage" role="tabpanel" aria-labelledby="usage-tab">
+                <div class="themeListing">
+                  <ul>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="userReview" role="tabpanel" aria-labelledby="userReview-tab">
+                <div class="themeListing">
+                  <ul>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="getPrint" role="tabpanel" aria-labelledby="getPrint-tab">
+                <div class="themeListing">
+                  <ul>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda, debitis deleniti dicta
+                      dolor doloribus earum
+                      fugiat illum laboriosam minus odio placeat quasi qui quod, ratione reprehenderit tenetur ut
+                      voluptatibus?
+                    </li>
+                    <li>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    </li>
+                  </ul>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<!--  product Details-->

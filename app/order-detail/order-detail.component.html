@@ -1,0 +1,104 @@
+<main class="mainBody">
+ 
+  <div class="orderHistory">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="mb-4">
+            Order Record
+          </h3>
+        </div>
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <div class="card">
+            <div class="card-body">
+              <h2>Order #{{orderDetail.order_id}}</h2>
+              <p>Placed on <span>{{orderDetail.created}}</span></p>
+
+              <hr>
+
+              <h3>Order Details</h3>
+              <div class="d-flex align-items-center gap-4">
+                <b>Reference#</b>
+                <span>{{orderDetail.payment_reference}}</span>
+              </div>
+              <div class="d-flex align-items-center gap-4">
+                <b>Status</b>
+                <span>{{orderDetail.status}}</span>
+              </div>
+
+              <!-- <div class="py-4">
+                <button class="btn btn-primary">Download Receipt</button>
+              </div> -->
+              
+              <div class="mb-4">
+                <b class="mb-3">Delivery Address</b>
+
+                <p class="mb-0">{{orderDetail.address.contact_name}}</p>
+                <p class="mb-0">{{orderDetail.address.address}}</p>
+                <p class="mb-0">{{orderDetail.address.town}} , {{orderDetail.address.post_code}}</p>
+                <p class="mb-0"><a href="">{{orderDetail.address.phone}}</a></p>
+              </div>
+              <div>
+                <b class="mb-3">Details</b>
+                
+                <p class="mb-0">Sub Total: £{{orderDetail.sub_total}}</p>
+                <p class="mb-0">Delivery : £{{orderDetail.delivery_fee}}</p>
+                <p class="mb-0">VAT      : £{{orderDetail.total_tax}}</p>
+                <p class="mb-0">Total    : £{{orderDetail.total}}</p>
+                  <!-- <span>09/08/2022</span>
+                  <span>08:00 pm</span>
+                  <span>10:00 pm</span> -->
+                
+              </div>
+              <div>
+                <b class="mb-3">Delivery Note</b>
+                <p class="mb-0">
+                  <span>{{orderDetail.note}}</span>
+                  <!-- <span>09/08/2022</span>
+                  <span>08:00 pm</span>
+                  <span>10:00 pm</span> -->
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="table-responsive mb-4 border border-bottom-0">
+            <table width="100%">
+              <thead>
+              <tr>
+                <td width="10%" align="left">Product</td>
+                <td width="30%" align="center">Item</td>
+                <td width="10%" align="center">Pack Size</td>
+                <td width="10%" align="center">No, of Pack</td>
+                <td width="10%" align="center">Price</td>
+                <td width="10%" align="center">Total Price</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of orderDetail.orderLines;let first = first;let index = index;">
+                <td width="10%" align="left">
+                  <div class="checkoutItemThumbnail">
+                    <img class="img-thumbnail" alt="" src="{{item.product.image_url}}">
+                  </div>
+                </td>
+                <td width="30%" align="center"><p class="mb-0">
+                 {{item.product.name}}</p></td>
+                 <td width="10%" align="center"><p class="mb-0">
+                  <span class="text-bold"> {{item.qty}} </span></p></td>
+                  <td width="10%" align="center"><p class="mb-0">
+                    <span class="text-bold"> {{item.count}} </span></p></td>
+                <td width="10%" align="center"><p class="mb-0">
+                  <span class="text-bold"> £{{item.price}} </span>ex.VAT </p></td>
+                
+                <td width="10%" align="center"><p class="mb-0">
+                  <span class="text-bold"> £{{item.total_price}} </span>ex.VAT </p></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
